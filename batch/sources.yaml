@@ -1,0 +1,9 @@
+sources:
+  - path: data/markdown/sample.md
+    title: サンプルMarkdown
+    source_url: local://sample.md
+    file_type: markdown
+    organization: Sample
+    authority_score: 0.5
+    content_date:
+

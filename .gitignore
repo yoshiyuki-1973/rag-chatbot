@@ -1,0 +1,17 @@
+.env
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+node_modules/
+.next/
+out/
+data/markdown/*
+data/pdf/*
+!data/markdown/.gitkeep
+!data/pdf/.gitkeep
+AGENTS.md
+CLAUDE.md
+
