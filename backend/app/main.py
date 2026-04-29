@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 def _create_llm_client(settings: Settings) -> BaseLLMClient:
     """LLM_PROVIDER 設定に基づいて LLM クライアントを生成する。"""
     if settings.llm_provider == "gemini":
-        return GeminiLLMClient(settings.gemini_api_key, settings.gemini_model)
+        return GeminiLLMClient(settings.gemini_api_key, settings.gemini_model_candidates)
     raise RuntimeError(f"Unsupported LLM_PROVIDER: {settings.llm_provider!r}")
 
 

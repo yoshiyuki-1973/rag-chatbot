@@ -12,6 +12,7 @@ def test_create_llm_client_returns_gemini_instance_by_default():
     )
     client = _create_llm_client(settings)
     assert isinstance(client, GeminiLLMClient)
+    assert client.models == ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
 
 
 def test_create_llm_client_raises_for_unknown_provider():

@@ -35,3 +35,16 @@ def test_db_pool_size_must_be_at_least_one():
 def test_db_pool_size_must_not_exceed_supavisor_session_limit():
     with pytest.raises(ValidationError):
         Settings(DB_POOL_MAX_SIZE=16, _env_file=None)
+
+
+def test_gemini_model_candidates_deduplicates_models():
+    settings = Settings(
+        GEMINI_MODEL="gemini-2.5-flash",
+        GEMINI_FALLBACK_MODELS="gemini-2.5-flash-lite,gemini-2.5-flash",
+        _env_file=None,
+    )
+
+    assert settings.gemini_model_candidates == [
+        "gemini-2.5-flash",
+        "gemini-2.5-flash-lite",
+    ]

@@ -8,6 +8,10 @@ class Settings(BaseSettings):
     database_url: str | None = Field(default=None, alias="DATABASE_URL")
     gemini_api_key: str | None = Field(default=None, alias="GEMINI_API_KEY")
     gemini_model: str = Field(default="gemini-2.5-flash", alias="GEMINI_MODEL")
+    gemini_fallback_models: str = Field(
+        default="gemini-2.5-flash-lite",
+        alias="GEMINI_FALLBACK_MODELS",
+    )
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
     llm_provider: str = Field(default="gemini", alias="LLM_PROVIDER")
     top_k_default: int = Field(default=5, alias="TOP_K_DEFAULT")
@@ -20,6 +24,16 @@ class Settings(BaseSettings):
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
+    @property
+    def gemini_model_candidates(self) -> list[str]:
+        models = [self.gemini_model]
+        models.extend(
+            model.strip()
+            for model in self.gemini_fallback_models.split(",")
+            if model.strip()
+        )
+        return list(dict.fromkeys(models))
 
     @field_validator("top_k_default")
     @classmethod
